@@ -1,1 +1,13 @@
-__pycache__
+# Cached information
+__pycache__/
+
+# Temporary files
+temp*.py
+
+# DataSet
+*.csv
+
+
+# Images
+*.png
+!Bayseian_Network.png
