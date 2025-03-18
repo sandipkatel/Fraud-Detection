@@ -2,7 +2,7 @@
 
 ## The Network
 
-![bayes-net](./bayes-net.png?raw=true)
+![bayes-net](./Bayseian_Network.png?raw=true)
 
 ### Running Instructions
 
