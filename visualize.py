@@ -18,7 +18,7 @@ def run_scenario(scenario_number):
     # Run the scenario and capture output
     # result = subprocess.run(['python', 'main.py', str(scenario_number)], 
     #                         capture_output=True, text=True)
-    result = subprocess.run(['python', 'main_.py', str(scenario_number)], 
+    result = subprocess.run(['python', 'main.py', str(scenario_number)], 
                             capture_output=True, text=True)
     output = result.stdout
     
