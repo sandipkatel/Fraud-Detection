@@ -11,3 +11,7 @@ temp*.py
 # Images
 *.png
 !Bayseian_Network.png
+
+#virtual environment
+.venv/
+*venv/

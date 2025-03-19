@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
 import re
-from Factor import Factor, Sign
-from Inference import inference
+# from Factor import Factor, Sign
+# from Inference import inference
 import matplotlib.patches as mpatches
 import networkx as nx
 
@@ -18,7 +18,7 @@ def run_scenario(scenario_number):
     # Run the scenario and capture output
     # result = subprocess.run(['python', 'main.py', str(scenario_number)], 
     #                         capture_output=True, text=True)
-    result = subprocess.run(['python', 'tempMain.py', str(scenario_number)], 
+    result = subprocess.run(['python', 'main_.py', str(scenario_number)], 
                             capture_output=True, text=True)
     output = result.stdout
     
@@ -111,87 +111,14 @@ def visualize_fraud_probabilities(scenario_numbers, scenario_descriptions):
     plt.title('Bayesian Network Fraud Detection Probabilities')
     plt.xticks(x_pos, scenario_descriptions, rotation=15, ha='right')
     plt.legend(handles=[fraud_patch, no_fraud_patch, threshold_line], loc='upper right')
-    plt.ylim(0, 1.1)  # Set y-axis limits
+    plt.ylim(0, 1.1) 
     plt.tight_layout()
     
-    # Create the network visualization in a separate figure
-    plt.figure(figsize=(10, 8))
-    visualize_network()
-    
-    # Create detailed probability charts for each scenario
     for i, scenario in enumerate(scenario_numbers):
-        if probabilities[i][2] is not None:  # Only create charts for scenarios with valid results
+        if probabilities[i][2] is not None: 
             create_detailed_chart(i+1, scenario_descriptions[i], probabilities[i], scenario)
     
     plt.show()
-
-
-def visualize_network():
-    """Create a visualization of the Bayesian Network structure"""
-    # Create directed graph
-    G = nx.DiGraph()
-    
-    # Add nodes
-    nodes = ['Trav', 'Fraud', 'OC', 'CRP', 'FP', 'IP']
-    G.add_nodes_from(nodes)
-    
-    # Add edges based on dependencies
-    edges = [
-        ('Trav', 'Fraud'),
-        ('Trav', 'FP'),
-        ('Fraud', 'FP'),
-        ('Fraud', 'IP'),
-        ('OC', 'CRP'),
-        ('OC', 'IP')
-    ]
-    G.add_edges_from(edges)
-    
-    # Define node colors
-    node_colors = {
-        'Trav': 'skyblue',   # Travel
-        'Fraud': 'crimson',  # Fraud (target variable)
-        'OC': 'gold',        # Other conditions
-        'CRP': 'lightgreen', # Credit reporting pattern
-        'FP': 'orange',      # Flagged purchase
-        'IP': 'purple'       # Investigation priority
-    }
-    
-    colors = [node_colors[node] for node in G.nodes()]
-    
-    # Define node positions
-    pos = {
-        'Trav': (0, 2),
-        'Fraud': (1, 1),
-        'OC': (3, 2),
-        'CRP': (4, 1),
-        'FP': (0, 0),
-        'IP': (3, 0)
-    }
-    
-    # Draw the network
-    nx.draw(G, pos, with_labels=True, node_color=colors, 
-            node_size=2000, arrowsize=20, font_weight='bold',
-            font_size=14, connectionstyle='arc3,rad=0.1')
-    
-    # Add title
-    plt.title("Bayesian Network for Credit Card Fraud Detection", fontsize=16)
-    
-    # Add legend
-    legend_elements = [
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='skyblue', 
-                  markersize=15, label='Travel (Trav)'),
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='crimson', 
-                  markersize=15, label='Fraud'),
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='gold', 
-                  markersize=15, label='Other Conditions (OC)'),
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='lightgreen', 
-                  markersize=15, label='Credit Reporting Pattern (CRP)'),
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='orange', 
-                  markersize=15, label='Flagged Purchase (FP)'),
-        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='purple', 
-                  markersize=15, label='Investigation Priority (IP)')
-    ]
-    plt.legend(handles=legend_elements, loc='lower right')
 
 
 def create_detailed_chart(scenario_num, scenario_desc, probabilities, scenario_code):
