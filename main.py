@@ -10,7 +10,7 @@ from Inference import inference
 
 def main() -> None:
     if len(sys.argv) <= 1:
-        print('Usage: python main.py [1 or 2 for 2b part 1 and 2 respectively]')
+        print('Usage: python main.py [1 or 2 or 3 or 4 for senario 1, 2, 3, and 4 respectively]')
         exit(-1)
 
     sim_to_run = sys.argv[1]
@@ -53,11 +53,11 @@ def main() -> None:
         inference(factors, ['IP'], ['Fraud', 'OC'],
                   [('FP', Sign.POSITIVE), ('Trav', Sign.NEGATIVE), ('CRP', Sign.POSITIVE)])
     elif sim_to_run == '3':
-        # New scenario: Computing P(Fraud|FP=+, Trav=+) - Fraud probability given flagged purchase during travel
+        # Computing P(Fraud|FP=+, Trav=+) - Fraud probability given flagged purchase during travel
         inference(factors, ['Fraud'], ['IP', 'OC', 'CRP'],
                   [('FP', Sign.POSITIVE), ('Trav', Sign.POSITIVE)])
     elif sim_to_run == '4':
-        # New scenario: Computing P(Fraud|FP=+, OC=+) - Fraud probability given flagged purchase with unusual conditions
+        # Computing P(Fraud|FP=+, OC=+) - Fraud probability given flagged purchase with unusual conditions
         inference(factors, ['Fraud'], ['IP', 'Trav', 'CRP'],
                   [('FP', Sign.POSITIVE), ('OC', Sign.POSITIVE)])
 
